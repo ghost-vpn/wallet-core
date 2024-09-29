@@ -30,16 +30,16 @@ impl WalletV5R1 {
         let wallet_id = WALLET_ID_V5R1_TON_MAINNET;
         Self::with_public_key(BASE_WORKCHAIN, public_key, wallet_id)
     }
-
+    
     /// Creates a standard TON wallet from the given key-pair.
     pub fn std_with_key_pair(key_pair: &KeyPair) -> CellResult<Self> {
         let wallet_id = WALLET_ID_V5R1_TON_MAINNET;
         Self::with_key_pair(BASE_WORKCHAIN, key_pair, wallet_id)
     }
-
+    
     /// Creates a TON wallet from the given public key.
     /// Please note when created with public key only, wallet cannot be used to sign messages.
-    pub(crate) fn with_public_key(
+    pub fn with_public_key(
         workchain: i32,
         public_key: PublicKey,
         wallet_id: i32,
@@ -48,7 +48,7 @@ impl WalletV5R1 {
     }
 
     /// Creates a TON wallet from the given key-pair.
-    fn with_key_pair(workchain: i32, key_pair: &KeyPair, wallet_id: i32) -> CellResult<Self> {
+    pub fn with_key_pair(workchain: i32, key_pair: &KeyPair, wallet_id: i32) -> CellResult<Self> {
         let public = key_pair.public().clone();
         let private = key_pair.private().clone();
         Self::new(workchain, public, Some(private), wallet_id)
@@ -56,7 +56,7 @@ impl WalletV5R1 {
 
     /// Private function to create the VersionedTonWallet with the given public and optional private keys.
     /// Do not make it public as the function caller can provide unrelated keys.
-    fn new(
+    pub fn new(
         workchain: i32,
         public_key: PublicKey,
         private_key: Option<PrivateKey>,
